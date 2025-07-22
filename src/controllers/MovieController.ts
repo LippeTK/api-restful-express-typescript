@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
-import { movieModel } from "../models/Movie";
+import { movieModel } from "../models/MovieModel";
 import Logger from "../../config/logger";
 
 export async function createMovie(req: Request, res: Response) {
-  return res.status(200).send("Deu certo controller");
+  try {
+    const data = req.body;
+    const movie = await movieModel.create(data);
+    res.status(201).json(movie);
+  } catch (error: any) {
+    Logger.error(`Erro: ${error.message}`);
+  }
 }
