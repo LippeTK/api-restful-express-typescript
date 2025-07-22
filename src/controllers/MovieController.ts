@@ -25,3 +25,12 @@ export async function getMovieById(req: Request, res: Response) {
     Logger.error(`Erro: ${error.message}`);
   }
 }
+
+export async function getAllMovies(req: Request, res: Response) {
+  try {
+    const movies = await movieModel.find();
+    return res.status(200).json(movies);
+  } catch (error: any) {
+    Logger.error(`Erro: ${error.message}`);
+  }
+}
